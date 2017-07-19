@@ -1,0 +1,74 @@
+
+J48 pruned tree
+------------------
+
+nbVarWithNumericSuffix <= 1
+|   valLIMIT <= 1000
+|   |   levenshtein <= 149
+|   |   |   isResultStar <= 0
+|   |   |   |   nbUNION <= 1: single (22327.0/434.0)
+|   |   |   |   nbUNION > 1
+|   |   |   |   |   nbOperator <= 6: fed (43.0)
+|   |   |   |   |   nbOperator > 6
+|   |   |   |   |   |   nbUNION <= 13
+|   |   |   |   |   |   |   nbBGP <= 9
+|   |   |   |   |   |   |   |   nbUNION <= 7: single (9.0)
+|   |   |   |   |   |   |   |   nbUNION > 7: fed (10.0)
+|   |   |   |   |   |   |   nbBGP > 9: single (37.0)
+|   |   |   |   |   |   nbUNION > 13: fed (11.0)
+|   |   |   isResultStar > 0
+|   |   |   |   valLIMIT <= -1: single (794.0)
+|   |   |   |   valLIMIT > -1: fed (622.0/7.0)
+|   |   levenshtein > 149
+|   |   |   nbOperator <= 2: fed (1583.0/2.0)
+|   |   |   nbOperator > 2: single (418.0)
+|   valLIMIT > 1000: fed (1325.0)
+nbVarWithNumericSuffix > 1: fed (19233.0)
+
+Number of Leaves  : 	12
+
+Size of the tree : 	23
+
+
+Time taken to build model: 2.92 seconds
+Time taken to test model on training split: 0.1 seconds
+
+=== Error on training split ===
+
+Correctly Classified Instances       45969               99.0455 %
+Incorrectly Classified Instances       443                0.9545 %
+Kappa statistic                          0.9809
+Mean absolute error                      0.0125
+Root mean squared error                  0.079 
+Relative absolute error                  3.7445 %
+Root relative squared error             19.3509 %
+Total Number of Instances            46412     
+
+
+=== Confusion Matrix ===
+
+     a     b     c   <-- classified as
+     0     0     0 |     a = ?
+     0 23151     9 |     b = single
+     0   434 22818 |     c = fed
+
+
+=== Error on test split ===
+
+Correctly Classified Instances       23675               99.0213 %
+Incorrectly Classified Instances       234                0.9787 %
+Kappa statistic                          0.9804
+Mean absolute error                      0.0127
+Root mean squared error                  0.08  
+Relative absolute error                  3.8039 %
+Root relative squared error             19.5973 %
+Total Number of Instances            23909     
+
+
+=== Confusion Matrix ===
+
+     a     b     c   <-- classified as
+     0     0     0 |     a = ?
+     0 11990    10 |     b = single
+     0   224 11685 |     c = fed
+
