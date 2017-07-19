@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import fr.univnantes.fedOrNot.spark.ExtractAllPredictionsCluster;
+import fr.univnantes.fedOrNot.spark.ExtractAllPredictions;
 import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -43,6 +43,6 @@ public class ExtractAllPredictionsTest {
     @Test
     public void hello() throws IOException {
         String [] args = {"4", "/Users/gaignard-a/Desktop/small-inputs"};
-        ExtractAllPredictionsCluster.main(args);
+        ExtractAllPredictions.main(args);
     }
 }

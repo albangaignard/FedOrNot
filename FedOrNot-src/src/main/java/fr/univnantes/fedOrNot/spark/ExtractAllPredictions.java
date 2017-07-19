@@ -28,15 +28,15 @@ import weka.core.Instance;
  *
  * @author Alban Gaignard <alban.gaignard@univ-nantes.fr>
  */
-public class ExtractAllPredictionsCluster {
+public class ExtractAllPredictions {
 
-    public static Logger logger = Logger.getLogger(ExtractAllPredictionsCluster.class);
+    public static Logger logger = Logger.getLogger(ExtractAllPredictions.class);
 
     public enum Headers {
         Filename, Single, Federated
     }
 
-    public ExtractAllPredictionsCluster() {
+    public ExtractAllPredictions() {
     }
 
     public static void main(String args[]) throws IOException {
@@ -57,7 +57,7 @@ public class ExtractAllPredictionsCluster {
         FileWriter predFileWriter = new FileWriter(tmpPred);
 
         try {
-            InputStream is = ExtractAllPredictionsCluster.class.getClassLoader().getResourceAsStream("random_forest.model");
+            InputStream is = ExtractAllPredictions.class.getClassLoader().getResourceAsStream("random_forest.model");
             final Classifier cls = (Classifier) weka.core.SerializationHelper.read(is);
             System.out.println(cls);
 
