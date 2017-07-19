@@ -1,0 +1,51 @@
+
+Options: -I 100 -K 20 
+
+Random forest of 100 trees, each constructed while considering 20 random features.
+Out of bag error: 0.0093
+
+
+
+Time taken to build model: 121.32 seconds
+Time taken to test model on training data: 0.81 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances       69673               99.0785 %
+Incorrectly Classified Instances       648                0.9215 %
+Kappa statistic                          0.9816
+Mean absolute error                      0.0099
+Root mean squared error                  0.0704
+Relative absolute error                  2.9784 %
+Root relative squared error             17.2521 %
+Total Number of Instances            70321     
+
+
+=== Confusion Matrix ===
+
+     a     b     c   <-- classified as
+     0     0     0 |     a = ?
+     0 35158     2 |     b = single
+     0   646 34515 |     c = fed
+
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances       69667               99.07   %
+Incorrectly Classified Instances       654                0.93   %
+Kappa statistic                          0.9814
+Mean absolute error                      0.01  
+Root mean squared error                  0.0709
+Relative absolute error                  3.004  %
+Root relative squared error             17.356  %
+Total Number of Instances            70321     
+
+
+=== Confusion Matrix ===
+
+     a     b     c   <-- classified as
+     0     0     0 |     a = ?
+     0 35152     8 |     b = single
+     0   646 34515 |     c = fed
+

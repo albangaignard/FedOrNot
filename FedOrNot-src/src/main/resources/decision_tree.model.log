@@ -1,0 +1,64 @@
+
+J48 pruned tree
+------------------
+
+valLIMIT <= 1000
+|   nbVarWithNumericSuffix <= 1
+|   |   levenshtein <= 146
+|   |   |   nbUNION <= 1: single (2781.0/33.0)
+|   |   |   nbUNION > 1
+|   |   |   |   nbFILTER <= 0: fed (13.0/1.0)
+|   |   |   |   nbFILTER > 0: single (43.0)
+|   |   levenshtein > 146
+|   |   |   levenshtein <= 152: fed (85.0)
+|   |   |   levenshtein > 152: single (50.0)
+|   nbVarWithNumericSuffix > 1: fed (1397.0)
+valLIMIT > 1000: fed (1335.0)
+
+Number of Leaves  : 	7
+
+Size of the tree : 	13
+
+
+Time taken to build model: 0.4 seconds
+Time taken to test model on training split: 0.03 seconds
+
+=== Error on training split ===
+
+Correctly Classified Instances        5670               99.4039 %
+Incorrectly Classified Instances        34                0.5961 %
+Kappa statistic                          0.9881
+Mean absolute error                      0.0078
+Root mean squared error                  0.0626
+Relative absolute error                  2.3511 %
+Root relative squared error             15.3345 %
+Total Number of Instances             5704     
+
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+    0    0    0 |    a = ?
+    0 2841    1 |    b = single
+    0   33 2829 |    c = fed
+
+
+=== Error on test split ===
+
+Correctly Classified Instances        2928               99.6257 %
+Incorrectly Classified Instances        11                0.3743 %
+Kappa statistic                          0.9925
+Mean absolute error                      0.0064
+Root mean squared error                  0.0496
+Relative absolute error                  1.9121 %
+Root relative squared error             12.1468 %
+Total Number of Instances             2939     
+
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+    0    0    0 |    a = ?
+    0 1478    1 |    b = single
+    0   10 1450 |    c = fed
+
