@@ -22,8 +22,9 @@ for p in inSinglelogsBZ:
 
 rule all:
 	input:
-		dt = MODELS+"/decisionTree.model.log",
-		rf = MODELS+"/randomForest.model.log"
+		DT = MODELS+"/decisionTree.model.log",
+		RF = MODELS+"/randomForest.model.log",
+		RF_var_importance = MODELS+"/RF_var_importance.pdf"
 
 rule bunzip2:
 	input: GROUND_TRUTH+"/{dir}/{file}.log.bz2"
@@ -121,3 +122,52 @@ rule build_RF_Model:
 		model = MODELS+"/randomForest.model",
 		log = MODELS+"/randomForest.model.log"
 	shell: "java -cp "+ WEKA_JAR +" weka.classifiers.trees.RandomForest  -t {input} -I 100 -K 20 -d {output.model} > {output.log}"
+
+rule show_RF_var_importance:
+	input: GROUND_TRUTH+"/ground_truth.arff"
+	output:
+		varImpPlot = MODELS+"/RF_var_importance.pdf"
+	run:
+		R("""
+			#install.packages(c("foreign","rpart","caret","randomForest"), repos="http://cran.r-project.org" )
+			list.of.packages <- c("ggplot2", "foreign", "rpart", "caret", "randomForest")
+			new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+			if(length(new.packages)) install.packages(new.packages)
+
+			library(foreign)
+			data <- read.arff("{input}")
+			summary(data)
+
+			data$isSELECT = as.factor(data$isSELECT)
+			data$isCONSTRUCT = as.factor(data$isCONSTRUCT)
+			data$isDISTINCT = as.factor(data$isDISTINCT)
+			data$isResultStar = as.factor(data$isResultStar)
+			data$nbVarWithNumericSuffix = as.integer(data$nbVarWithNumericSuffix)
+			data$hasPREFIX = as.factor(data$hasPREFIX)
+			data$valOFFSET = as.integer(data$valOFFSET)
+			data$valLIMIT = as.integer(data$valLIMIT)
+			data$nbFILTER = as.integer(data$nbFILTER)
+			data$nbORDERBY = as.integer(data$nbORDERBY)
+			data$nbUNION = as.integer(data$nbUNION)
+			data$nbOPTIONAL = as.integer(data$nbOPTIONAL)
+			data$nbGROUPBY = as.integer(data$nbGROUPBY)
+			data$nbORInFILTER = as.integer(data$nbORInFILTER)
+			data$nbNotEqualsInFILTER = as.integer(data$nbNotEqualsInFILTER)
+			data$nbEqualsInFILTER = as.integer(data$nbEqualsInFILTER)
+			data$levenshtein = as.integer(data$levenshtein)
+			data$nbOperator = as.integer(data$nbOperator)
+			data$nbBGP = as.integer(data$nbBGP)
+			data$nbTRIPLE = as.integer(data$nbTRIPLE)
+			data$nbORInFILTER = as.integer(data$nbORInFILTER)
+			data$nbNotEqualsInFILTER = as.integer(data$nbNotEqualsInFILTER)
+			data$nbEqualsInFILTER = as.integer(data$nbEqualsInFILTER)
+
+			pdf('{output.varImpPlot}')
+			library(randomForest)
+			model.rf <- randomForest(Class~., data, ntree=500, importance=TRUE, nodesize=5)
+			print("Random forest")
+			print(model.rf)
+			varImpPlot(model.rf)
+			dev.off()
+
+		""")
